@@ -70,7 +70,7 @@ The project is organized as follows:
 
 ### Simulation with ScalaFX UI
 #### Video
-
+in Ressources/FireSimulation.mp4
 #### screenshots
 ![](Ressources/parameters.png)
 ![](Ressources/gridSimulation.png)
