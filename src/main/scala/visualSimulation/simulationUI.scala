@@ -31,8 +31,8 @@ object SimulationUI extends JFXApp3 {
     val treeSlider = new Slider(0, 1, 0.2)
     val rainfallSlider = new Slider(0.03, 0.14, 0.08)
     val stepSlider = new Slider(10, 200, 100)
-    val gridTypeCombo = new ComboBox[String](Seq("Flat", "Sinusoidal")) {
-      value = "Sinusoidal"
+    val gridTypeCombo = new ComboBox[String](Seq("Flat", "sinusoidal", "mountain", "valley")) {
+      value = "sinusoidal"
     }
 
     val widthSpinner = new Spinner[Int](10, 100, 20) {
@@ -74,10 +74,10 @@ object SimulationUI extends JFXApp3 {
     val weatherLabel = new Label("🌤 Weather: N/A") {
       font = Font("Arial", 16)
     }
-    val baseElevationSpinner = new Spinner[Int](0, 100, 0) {
+    val baseElevationSpinner = new Spinner[Int](0, 1000, 0) {
       editable = true
     }
-    val maxElevationSpinner = new Spinner[Int](1, 200, 20) {
+    val maxElevationSpinner = new Spinner[Int](1, 2000, 20) {
       editable = true
     }
 
@@ -119,7 +119,7 @@ object SimulationUI extends JFXApp3 {
       val treeProb = treeSlider.value.value.toFloat
       val rainfall = rainfallSlider.value.value.toFloat
       val steps = stepSlider.value.value.toInt
-      val isSinusoidal = gridTypeCombo.value.value == "Sinusoidal"
+      val gridType = gridTypeCombo.value.value
       val width = widthSpinner.getValue
       val height = heightSpinner.getValue
       val baseElevation = baseElevationSpinner.getValue
@@ -131,7 +131,7 @@ object SimulationUI extends JFXApp3 {
         baseElevation = baseElevation,
         maxElevation = maxElevation,
         treeProbability = treeProb,
-        sinusoidal = isSinusoidal
+        terrainType = gridType
       )
 
       // Adjustable ratios

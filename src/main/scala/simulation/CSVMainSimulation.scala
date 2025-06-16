@@ -14,7 +14,7 @@ object CSVMainSimulation extends App {
     baseElevation = 0,
     maxElevation = 0,
     treeProbability = 0.2f,
-    sinusoidal = false
+    terrainType = "sinusoidal"
   )
 
   val weatherList = generateWeatherList(
@@ -46,8 +46,7 @@ object CSVMainSimulation extends App {
         steps = simulationStep
       )
 
-      val initialGrid = GridGeneration.generateFlatGrid(gridGenerationConfig)
-      //val initialGrid = GridGenerator.generateGrid(config)
+      val initialGrid = GridGeneration.generateGrid(gridGenerationConfig)
       val result = CSVSimulationRunner.simulateAndCollect(initialGrid, params)
 
       result.foreach { case (step, burnedRatio) =>

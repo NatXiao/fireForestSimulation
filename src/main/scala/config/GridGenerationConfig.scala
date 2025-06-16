@@ -6,5 +6,5 @@ case class GridGenerationConfig(
                                  baseElevation: Int = 0,
                                  maxElevation: Int = 20,
                                  treeProbability: Float,
-                                 sinusoidal: Boolean = false,
+                                 terrainType: String
                                )

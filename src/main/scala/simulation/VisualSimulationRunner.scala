@@ -13,7 +13,7 @@ object VisualSimulationRunner {
                  simParams: SimulationParameters
                ): Seq[(Grid, Weather)] = {
 
-    val initialGrid = GridGeneration.generateFlatGrid(gridConfig)
+    val initialGrid = GridGeneration.generateGrid(gridConfig)
 
     @tailrec
     def simulate(grid: Grid, remaining: Int, weatherSeq: List[Weather], frames: Seq[(Grid, Weather)]): Seq[(Grid, Weather)] = {

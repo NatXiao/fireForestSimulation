@@ -16,13 +16,13 @@ import scala.annotation.tailrec
     baseElevation = 0,
     maxElevation = 100,
     treeProbability = 0.2f,
-      sinusoidal = true
+      terrainType = "sinusoidal"
     )
 
     val dataURL = "https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/sio/ogd-smn_sio_d_recent.csv"
 
     //private val initialGrid = GridGenerator.generateGrid(config)
-    private val initialGrid = GridGeneration.generateFlatGrid(gridGenerationConfig)
+    private val initialGrid = GridGeneration.generateGrid(gridGenerationConfig)
     private val weatherList = generateWeatherList( // repartition for Sion
       sunnyCount = 71,
       rainyCount = 22,
