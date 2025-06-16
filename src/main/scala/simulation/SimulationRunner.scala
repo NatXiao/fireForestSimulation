@@ -4,7 +4,7 @@ import config.SimulationParameters
 import model.{CellState, Grid, Weather}
 import rules._
 
-object Simulation {
+object SimulationRunner {
   def runStep(grid: Grid, params: SimulationParameters, currentWeather: Weather): Grid = {
     grid.mapCells { cell =>
 

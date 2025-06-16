@@ -1,15 +1,14 @@
 package simulation
 
-import GridGeneration.{FlatGrid, FlatGridconfig}
+import GridGeneration.GridGeneration
 import config._
 import model._
 import Renderer._
-import rules.WeatherRule.generateWeatherList
 
-object CSVSimulation {
+object CSVSimulationRunner {
 
   def simulateAndCollect(initialGrid: Grid, params: SimulationParameters): List[(Int, Double)] = {
-    val steps = params.simulationStep
+    val steps = params.steps
     val weatherSeq = params.weatherList
 
     @scala.annotation.tailrec
@@ -32,7 +31,7 @@ object CSVSimulation {
       println(f">> Burned ratio: $burnedRatio%.2f")
 
       if (remaining > 0) {
-        val nextGrid = Simulation.runStep(grid, params, currentWeather)
+        val nextGrid = SimulationRunner.runStep(grid, params, currentWeather)
         loop(nextGrid, remaining - 1, weatherSeq.drop(1), acc :+ (step, burnedRatio))
       } else {
         acc

@@ -1,6 +1,6 @@
 package simulation
 
-import GridGeneration.{FlatGrid, FlatGridconfig}
+import GridGeneration.GridGeneration
 import Renderer._
 import config._
 import model._
@@ -8,18 +8,11 @@ import rules.WeatherRule.generateWeatherList
 
 import scala.annotation.tailrec
 
-  object MainSimulation extends App {
+  object ConsoleMainSimulation extends App {
 
-    val config = GenerationConfig(
-      width = 20,
-      height = 10,
-      maxElevation = 3000,
-      treeProbability = 0.2f
-    )
-
-    val gridGenerationConfig =  FlatGridconfig(
+    val gridGenerationConfig =  GridGenerationConfig(
     width = 20,
-    heigth = 10,
+    height = 10,
     baseElevation = 0,
     maxElevation = 100,
     treeProbability = 0.2f,
@@ -29,7 +22,7 @@ import scala.annotation.tailrec
     val dataURL = "https://data.geo.admin.ch/ch.meteoschweiz.ogd-smn/sio/ogd-smn_sio_d_recent.csv"
 
     //private val initialGrid = GridGenerator.generateGrid(config)
-    private val initialGrid = FlatGrid.generateFlatGrid(gridGenerationConfig)
+    private val initialGrid = GridGeneration.generateFlatGrid(gridGenerationConfig)
     private val weatherList = generateWeatherList( // repartition for Sion
       sunnyCount = 71,
       rainyCount = 22,
@@ -37,21 +30,16 @@ import scala.annotation.tailrec
     )
 
     val params = SimulationParameters(
-      year = 2020,
-      startMonth = 6,
-      endMonth = 9,
-
-
       humanIntervention = false,
       weatherList = weatherList,
       regrowTree = 0.01f ,
       rainfallPrecipitation = 0.08f, //should be between 30 and 140 ==> for phase transition // value mm per meter for a day
-
-      simulationStep = 100
+      steps = 100
     )
 
-    private val steps = params.simulationStep
+    private val steps = params.steps
     ConsoleElevationRenderer.render(initialGrid)
+
     @tailrec
     private def simulate(grid: Grid, remaining: Int, weatherSeq : List[Weather]): Unit = {
       val step = steps - remaining
@@ -64,7 +52,7 @@ import scala.annotation.tailrec
       ConsoleHumidityRenderer.render(grid)
 
       if (remaining > 0) {
-        val nextGrid = Simulation.runStep(grid, params, currentWeather)
+        val nextGrid = SimulationRunner.runStep(grid, params, currentWeather)
         simulate(nextGrid, remaining - 1, weatherSeq.drop(1))
       }
     }

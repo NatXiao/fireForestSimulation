@@ -15,4 +15,15 @@ object ConsoleHumidityRenderer {
       println(row.mkString(" "))
     }
   }
+
+  def renderToString(grid: Grid): String = {
+    val sb = new StringBuilder
+    for (y <- grid.rangeY) {
+      val row = for (x <- grid.rangeX) yield {
+        grid.get(x, y).map(cell => formatHumidity(cell.humidity)).getOrElse("   ")
+      }
+      sb.append(row.mkString(" ") + "\n")
+    }
+    sb.toString()
+  }
 }

@@ -3,14 +3,9 @@ package config
 import model.Weather
 
 case class SimulationParameters(
-                                 year : Int,
-                                 startMonth : Int,
-                                 endMonth : Int,
-
+                                 steps: Int,
                                  weatherList: List[Weather],
-                                 rainfallPrecipitation : Float,
-
-                                 regrowTree: Float,
-                                 simulationStep : Int,
-                                 humanIntervention:Boolean,
+                                 rainfallPrecipitation: Float,
+                                 regrowTree: Float = 0.01f,
+                                 humanIntervention: Boolean = false
                                )

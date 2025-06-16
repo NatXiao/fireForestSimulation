@@ -1,20 +1,13 @@
 package GridGeneration
 
+import config.GridGenerationConfig
 import model.{Cell, CellState, Grid}
 
 import scala.util.Random
 
-case class FlatGridconfig (
-                            width : Int,
-                            heigth : Int,
-                            baseElevation : Int = 0,
-                            maxElevation : Int = 20,
-                            treeProbability : Float,
-                            sinusoidal : Boolean = false,
-)
 
-object FlatGrid {
-  def generateFlatGrid(config: FlatGridconfig): Grid = {
+object GridGeneration {
+  def generateFlatGrid(config: GridGenerationConfig): Grid = {
     if (config.sinusoidal) {
       val cells2D = generateCellsSin(config)
       Grid(cells2D)
@@ -25,9 +18,9 @@ object FlatGrid {
     }
 }
 
-  private def generateCells(config: FlatGridconfig): Vector[Vector[Cell]] = {
+  private def generateCells(config: GridGenerationConfig): Vector[Vector[Cell]] = {
     val width = config.width
-    val height = config.heigth
+    val height = config.height
     val base = config.baseElevation
     val max = config.maxElevation
     val treeProb = config.treeProbability
@@ -42,9 +35,9 @@ object FlatGrid {
     }
   }
 
-  private def generateCellsSin(config: FlatGridconfig): Vector[Vector[Cell]] = {
+  private def generateCellsSin(config: GridGenerationConfig): Vector[Vector[Cell]] = {
     val width = config.width
-    val height = config.heigth
+    val height = config.height
     val base = config.baseElevation
     val max = config.maxElevation
     val treeProb = config.treeProbability
